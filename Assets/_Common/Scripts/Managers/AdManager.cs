@@ -16,9 +16,16 @@ public class AdManager : MonoBehaviour
 {
     public static AdManager Instance;
 
-    // 출시 전 테스트 ID
+    // 에디터와 실제 빌드의 광고 ID를 분리
+#if UNITY_EDITOR
+    // 유니티 에디터 테스트용 (구글 공용 테스트 ID)
     private string bannerID = "ca-app-pub-3940256099942544/6300978111";
     private string interstitialId = "ca-app-pub-3940256099942544/1033173712";
+#else
+    // 실제 안드로이드 빌드용 (발급받은 진짜 광고 단위 ID)
+    private string bannerID = "ca-app-pub-5083599118880469/1835728053";
+    private string interstitialId = "ca-app-pub-5083599118880469/3344250845";
+#endif
 
     private BannerView bannerView;
     private InterstitialAd interstitialAd;
