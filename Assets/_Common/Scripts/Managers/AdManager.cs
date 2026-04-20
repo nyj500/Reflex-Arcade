@@ -12,10 +12,8 @@ using System.Collections;
  * 3. ScheduleInterstitial: 게임 오버 시 외부에서 호출. 0.1초 딜레이 후 광고 표시 로직을 실행
  * 4. LoadInterstitialAd  : 다음 표시할 전면 광고를 서버에서 미리 로드하여 대기
  * ====================================================================== */
-public class AdManager : MonoBehaviour
+public class AdManager : PersistentSingleton<AdManager>
 {
-    public static AdManager Instance;
-
     // 에디터와 실제 빌드의 광고 ID를 분리
 #if UNITY_EDITOR
     // 유니티 에디터 테스트용 (구글 공용 테스트 ID)
@@ -33,18 +31,6 @@ public class AdManager : MonoBehaviour
     private int gameOverCount = 0;
     private const int AdFrequency = 5; // 5번 게임 오버 시마다 광고 표시
 
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     void Start()
     {
         // SDK 초기화 후 전면 광고 미리 로드

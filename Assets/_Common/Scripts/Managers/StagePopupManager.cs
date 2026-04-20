@@ -12,9 +12,8 @@ using UnityEngine.UI;
  * 3. Auto Layout : Content Size Fitter 등을 통해 팝업 크기 자동 조절
  * ================================================================================== */
 
-public class StagePopupManager : MonoBehaviour
+public class StagePopupManager : Singleton<StagePopupManager>
 {
-    public static StagePopupManager Instance;
 
     [SerializeField] private GameObject popupObject; // 켜고 끌 파란 상자 (Popup_UI)
     [SerializeField] RectTransform popupStartPos; // 위치를 옮길 파란 상자의 Transform
@@ -36,9 +35,9 @@ public class StagePopupManager : MonoBehaviour
     }
     [SerializeField] private List<GameIconData> iconDataBase;
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
         Hide();
     }
     void Update()

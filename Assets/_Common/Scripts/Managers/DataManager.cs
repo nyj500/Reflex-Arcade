@@ -11,23 +11,8 @@ using UnityEngine;
  * 4. SetTutorialSeen       : 해당 게임의 튜토리얼 시청 완료 상태를 저장(도장 찍기)
 /* ====================================================================== */
 
-public class DataManager : MonoBehaviour
+public class DataManager : PersistentSingleton<DataManager>
 {
-    public static DataManager Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     // 점수 저장 및 불러오기
     public bool CheckAndSaveBestScore(GameType type, int score)
     {

@@ -1,23 +1,8 @@
 using UnityEngine;
 
-public class AppManager : MonoBehaviour
+public class AppManager : PersistentSingleton<AppManager>
 {
-    public static AppManager Instance;
-
     private float backBtnTime = 0f;
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     void Update()
     {

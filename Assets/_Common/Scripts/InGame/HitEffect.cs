@@ -5,12 +5,8 @@ using UnityEngine;
  * [Class]: HitEffect (Singleton)
  * [Role] : 게임 오버 시 원인이 된 충돌 오브젝트를 시각적으로 강조(Highlight)하는 연출 클래스
  * ====================================================================== */
-public class HitEffect : MonoBehaviour
+public class HitEffect : Singleton<HitEffect>
 {
-    public static HitEffect Instance;
-
-    void Awake() => Instance = this;
-
     public void PlayHighlight(Transform target)
     {
         if (target == null) return;
