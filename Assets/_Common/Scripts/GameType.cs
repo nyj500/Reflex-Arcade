@@ -3,5 +3,6 @@ public enum GameType
     InsideOut,
     ColorTwin,
     GravitySplit,
-    OrbitSync
+    MirrorDodge,
+    OrbitSync,
 }

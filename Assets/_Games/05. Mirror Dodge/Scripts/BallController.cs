@@ -98,6 +98,7 @@ namespace MirrorDodge
             }
             else if (collision.gameObject.CompareTag("Obstacle"))
             {
+                HitEffect.Instance.PlayHighlight(collision.transform);
                 MirrorDodgeManager.Instance.GameOver();
             }
         }
