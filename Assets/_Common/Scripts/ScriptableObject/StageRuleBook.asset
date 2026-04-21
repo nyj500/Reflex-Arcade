@@ -13,13 +13,25 @@ MonoBehaviour:
   m_Name: StageRuleBook
   m_EditorClassIdentifier: 
   rules:
-  - gameType: 0
-    requiredScore: 1
-  - gameType: 1
-    requiredScore: 1
-  - gameType: 2
-    requiredScore: 1
-  - gameType: 3
-    requiredScore: 1
-  - gameType: 4
-    requiredScore: 9999
+  - targetGame: 0
+    conditions: []
+  - targetGame: 2
+    conditions:
+    - sourceGame: 0
+      requiredScore: 1
+    - sourceGame: 1
+      requiredScore: 1
+  - targetGame: 3
+    conditions:
+    - sourceGame: 0
+      requiredScore: 2
+    - sourceGame: 1
+      requiredScore: 2
+    - sourceGame: 2
+      requiredScore: 2
+  - targetGame: 4
+    conditions:
+    - sourceGame: 2
+      requiredScore: 5
+    - sourceGame: 3
+      requiredScore: 5

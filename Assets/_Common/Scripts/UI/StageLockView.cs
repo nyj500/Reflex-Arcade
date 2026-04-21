@@ -1,23 +1,26 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 /* ==================================================================================
  * [Class]: StageLockView
- * [Role] : 개별 스테이지의 잠금 상태를 관리하고, 클릭 시 해금 조건을 팝업 매니저에게 '주문'하는 역할
- * * [Flow]
- * 1. CheckUnlock : Config(점수표)와 DataManager(내 점수)를 비교하여 해금 여부 판단
- * 2. UpdateUI    : 판단 결과에 따라 자물쇠를 켜거나, 플레이 버튼을 활성화
- * 3. OnLockClick : 잠겨있다면, 필요한 조건 리스트(prerequisiteGames)를 매니저에게 전달하며 팝업 요청
+ * [Role] : 개별 스테이지의 잠금 상태를 관리하고, 클릭 시 해금 조건을 팝업 매니저에게 전달
+ *
+ * [변경 이유]
+ * 기존: prerequisiteGames 리스트를 직접 인스펙터에 입력 → Config와 데이터 이중 관리
+ * 변경: targetGame 하나만 설정하면, 조건 목록은 Config에서 자동으로 읽어옴
+ *       → 인스펙터 설정이 단순해지고, Config 수정 시 자동 반영
+ *
+ * [Flow]
+ * 1. UpdateUI    : config.IsUnlocked(targetGame)으로 잠금 여부 판단 → UI 갱신
+ * 2. OnLockClick : config.GetConditions(targetGame)으로 조건 목록 가져와 팝업 요청
  * ================================================================================== */
-
 public class StageLockView : MonoBehaviour
 {
     [SerializeField] private StageUnLockConfig config;
 
-    // [확장성 핵심] 이 스테이지를 열기 위해 클리어해야 하는 게임들 리스트
-    // 예: GravitySplit을 열려면 -> InsideOut, ColorTwin 두 개를 리스트에 등록
-    [SerializeField] private List<GameType> prerequisiteGames;
+    // 이 뷰가 담당하는 게임 (열릴 게임, 예: GravitySplit)
+    // 조건 목록은 config에서 자동으로 읽어오므로 별도 입력 불필요
+    [SerializeField] private GameType targetGame;
 
     [SerializeField] private GameObject lockIcon;
     [SerializeField] private Button playButton;
@@ -27,33 +30,16 @@ public class StageLockView : MonoBehaviour
         UpdateUI();
     }
 
-    private bool CheckUnlock()
-    {
-        if (DataManager.Instance == null || config == null) return false;
-
-        foreach (var targetGame in prerequisiteGames)
-        {
-            // 롤북에서 통과 기준 점수 가져오기
-            int requiredScore = config.GetRequiedScore(targetGame);
-            // 내 최고 점수 가져오기
-            int myBestScore = DataManager.Instance.GetBestScore(targetGame);
-
-            if (myBestScore < requiredScore)
-            {
-                return false; // 하나라도 조건 미달이면 잠김
-            }
-        }
-        return true; // 모두 조건 달성 시 해제
-    }
-
     public void UpdateUI()
     {
-        bool isUnlocked = CheckUnlock();
+        // config에서 targetGame의 모든 조건 달성 여부를 한 번에 확인
+        bool isUnlocked = config != null && config.IsUnlocked(targetGame);
 
-        if (lockIcon != null) lockIcon.SetActive(!isUnlocked);
-
-        if (!isUnlocked)
+        if (lockIcon != null)
         {
+            lockIcon.SetActive(!isUnlocked);
+
+            // 잠긴 상태일 때만 자물쇠 버튼 클릭 이벤트 등록
             Button lockBtn = lockIcon.GetComponent<Button>();
             if (lockBtn != null)
             {
@@ -64,11 +50,14 @@ public class StageLockView : MonoBehaviour
 
         if (playButton != null) playButton.gameObject.SetActive(isUnlocked);
     }
+
     private void OnLockClick()
     {
-        if (StagePopupManager.Instance != null && lockIcon != null)
-        {
-            StagePopupManager.Instance.Show(lockIcon.transform.position,prerequisiteGames);
-        }
+        if (StagePopupManager.Instance == null || config == null) return;
+
+        // config에서 조건 목록을 가져와 팝업에 전달
+        var conditions = config.GetConditions(targetGame);
+        if (conditions != null)
+            StagePopupManager.Instance.Show(lockIcon.transform.position, conditions);
     }
 }

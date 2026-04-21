@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 694a58ae5830a4fd090701df78d2773f, type: 2}
-  prerequisiteGames: 02000000
+  targetGame: 3
   lockIcon: {fileID: 1711963885}
   playButton: {fileID: 67348685}
 --- !u!224 &627291852 stripped
@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 694a58ae5830a4fd090701df78d2773f, type: 2}
-  prerequisiteGames: 03000000
+  targetGame: 4
   lockIcon: {fileID: 103507766}
   playButton: {fileID: 184761748}
 --- !u!1001 &879188535
@@ -1897,7 +1897,7 @@ PrefabInstance:
       objectReference: {fileID: 879188538}
     - target: {fileID: -411531783696196037, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
       propertyPath: targetGameType
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1433076573777602474, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
       propertyPath: m_Pivot.x
@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 694a58ae5830a4fd090701df78d2773f, type: 2}
-  prerequisiteGames: 0000000001000000
+  targetGame: 2
   lockIcon: {fileID: 1318644469}
   playButton: {fileID: 1823750690}
 --- !u!1 &1001156913
@@ -2822,7 +2822,6 @@ MonoBehaviour:
   offset: {x: 0, y: 50, z: 0}
   contentContainer: {fileID: 627291852}
   rowPrefab: {fileID: -62407504484595416, guid: d0f3b707376ad4a90b6f1e034204f8dd, type: 3}
-  config: {fileID: 11400000, guid: 694a58ae5830a4fd090701df78d2773f, type: 2}
   iconDataBase:
   - gameType: 0
     icon: {fileID: 21300000, guid: fa3fdd3fd4fdf486b97c0db617184e45, type: 3}
@@ -3799,6 +3798,10 @@ PrefabInstance:
       propertyPath: targetGameType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -411531783696196037, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
+      propertyPath: checkSpecificSource
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1433076573777602474, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4303,7 +4306,7 @@ PrefabInstance:
       objectReference: {fileID: 2013483078}
     - target: {fileID: -411531783696196037, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
       propertyPath: targetGameType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1433076573777602474, guid: a58f6932a0df14aff926bab646bbbcda, type: 3}
       propertyPath: m_Pivot.x
@@ -4508,6 +4511,14 @@ PrefabInstance:
       propertyPath: unclearArrow
       value: 
       objectReference: {fileID: 2142363855}
+    - target: {fileID: 7466925964912792383, guid: d3a0c8cbfbd16417fbbd76817dc7e315, type: 3}
+      propertyPath: targetGameType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466925964912792383, guid: d3a0c8cbfbd16417fbbd76817dc7e315, type: 3}
+      propertyPath: checkSpecificSource
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4717,7 +4728,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1219559674}
     - target: {fileID: -4236153197503761412, guid: a9b58cb57827c40028a6a565e44d3947, type: 3}
+      propertyPath: sourceGameType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4236153197503761412, guid: a9b58cb57827c40028a6a565e44d3947, type: 3}
       propertyPath: targetGameType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4236153197503761412, guid: a9b58cb57827c40028a6a565e44d3947, type: 3}
+      propertyPath: checkSpecificSource
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4465977648161862469, guid: a9b58cb57827c40028a6a565e44d3947, type: 3}
