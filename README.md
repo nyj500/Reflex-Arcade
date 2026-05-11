@@ -10,7 +10,8 @@
 ## 담당 역할
 
 **Color Twin 미니게임 구현**  
-떨어지는 오브젝트와 하단 버튼의 색상을 일치시키는 아케이드 액션 게임.
+떨어지는 오브젝트와 하단 버튼의 색상을 일치시키는 아케이드 액션 게임.  
+게임 로직 · 이벤트 시스템 · UI · 사운드 연동 담당
 
 ## 주요 구현
 
@@ -73,6 +74,23 @@ IEnumerator SpawnLoop(FallingCircle[] fallingCircles, int currentIndex)
 ```
 
 좌우 화면을 독립 코루틴으로 병렬 제어한다.
+
+### 출현 확률 기반 빈 슬롯 설계 — 3단계 판정 분기
+
+오브젝트가 `appearanceRate(30%)` 확률로만 스프라이트를 가지며, 나머지는 `null`(투명)로 처리된다. 판정이 세 가지로 자연스럽게 분기되어 빈 슬롯을 별도 타입 없이 처리할 수 있다.
+
+```csharp
+void CheckImageMatch()
+{
+    if (image.sprite == target.sprite)   // 일치 → 점수
+        onSpriteMatch?.Invoke();
+    else if (image.sprite != null)       // 불일치 → 게임 오버
+        onSpriteMismatch?.Invoke(this);
+    // else: null(빈 슬롯) → 무시
+}
+```
+
+`appearanceRate` 수치 조정만으로 난이도를 제어할 수 있으며, 오브젝트 풀링 구조와도 자연스럽게 통합된다.
 
 ### 실시간 거리 판정 로직
 
